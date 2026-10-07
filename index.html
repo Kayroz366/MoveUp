@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copywriting & UX Content - App Fitness (Alongamentos)</title>
+  <!-- Fonte Moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #FF66A1;
+      --primary-hover: #FF80B3;
+      --primary-light: #FFA8CB;
+      --bg-dark: #121212;
+      --surface: #1E1E1E;
+      --surface-card: #1A1A1A;
+      --text: #FFFFFF;
+      --text-muted: #A0A0A0;
+      --accent: #00E676;
+      --border: #333333;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout Horizontal Fullscreen com Snap Scroll */
+    .horizontal-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+    }
+
+    .screen-card {
+      width: 100vw;
+      min-width: 100vw;
+      height: 100vh;
+      background-color: var(--surface);
+      padding: 32px 24px 20px 24px;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .screen-content {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      overflow-y: auto;
+      max-height: calc(100vh - 150px);
+      padding-right: 4px;
+    }
+
+    .screen-footer {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .screen-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary-light);
+      font-weight: 800;
+      margin-bottom: 10px;
+      display: inline-block;
+      background: rgba(255, 102, 161, 0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 102, 161, 0.2);
+    }
+
+    h1, h2, h3, p { margin: 0 0 10px 0; }
+    h1 { font-size: 24px; font-weight: 800; line-height: 1.25; letter-spacing: -0.5px; }
+    h2 { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; }
+    p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+
+    /* Componentes de Botão */
+    .btn {
+      width: 100%; padding: 15px; border-radius: var(--radius-md); border: none;
+      font-weight: 700; font-size: 14px; cursor: pointer; text-align: center;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: block;
+      text-decoration: none; letter-spacing: 0.2px;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, #E0528B 100%);
+      color: #FFF; box-shadow: 0 4px 20px rgba(255, 102, 161, 0.35);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(255, 102, 161, 0.5); filter: brightness(1.05);
+    }
+    .btn-secondary {
+      background-color: transparent; color: var(--text-muted);
+      border: 1px solid var(--border); margin-top: 8px;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255, 255, 255, 0.2); color: var(--text);
+    }
+
+    /* Tabela Comparativa */
+    .table-container {
+      overflow-x: auto; margin-top: 14px; border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border); background: var(--glass);
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text); font-weight: 700; background-color: rgba(255, 255, 255, 0.02); }
+    td.check { color: var(--accent); font-weight: bold; text-align: center; }
+    td.cross { color: #555; text-align: center; }
+
+    /* Cards de Preço */
+    .plan-card {
+      border: 1px solid var(--border); background: var(--glass);
+      border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px;
+      cursor: pointer; position: relative; transition: all 0.2s ease;
+    }
+    .plan-card:hover { border-color: rgba(255, 255, 255, 0.2); }
+    .plan-card.featured {
+      border: 2px solid var(--primary); background-color: rgba(255, 102, 161, 0.06);
+      box-shadow: 0 4px 20px rgba(255, 102, 161, 0.12);
+    }
+    .badge {
+      position: absolute; top: -10px; right: 14px; background: var(--primary);
+      color: #FFF; font-size: 10px; font-weight: 800; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(255, 102, 161, 0.4);
+    }
+    .plan-price { font-size: 20px; font-weight: 800; color: var(--text); margin-top: 4px; }
+    .plan-subtext { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Listas */
+    .feature-list { list-style: none; padding: 0; margin: 12px 0; }
+    .feature-list li {
+      font-size: 13px; margin-bottom: 8px; display: flex;
+      align-items: center; gap: 10px; color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Notificações */
+    .notification {
+      background: #222222; border-left: 4px solid var(--primary);
+      border-top: 1px solid var(--glass-border); border-right: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border); padding: 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .notification-title {
+      font-size: 13px; font-weight: 700; color: var(--text); display: block; margin-bottom: 4px;
+    }
+    .notification-body { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+    /* PERFIL / MODAL FULLSCREEN */
+    .profile-screen-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: var(--bg-dark); z-index: 9999; padding: 32px 20px 60px 20px;
+      flex-direction: column; justify-content: space-between;
+    }
+    .profile-screen-overlay.active { display: flex; }
+    .profile-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .back-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; width: 36px; height: 36px; border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255, 255, 255, 0.1); }
+    .back-btn svg { width: 20px; height: 20px; stroke: var(--text); stroke-width: 2.5; }
+    .profile-title { font-size: 20px; font-weight: 700; margin: 0; }
+    
+    .avatar-wrapper { position: relative; width: 100px; height: 100px; margin: 10px auto 24px auto; }
+    .avatar-circle {
+      width: 100%; height: 100%; border-radius: 50%; background-color: #2A2A2A;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      background-size: cover; background-position: center; border: 2px solid var(--border);
+    }
+    .avatar-circle svg { width: 60px; height: 60px; fill: #555555; margin-top: 12px; }
+    .camera-badge {
+      position: absolute; bottom: 2px; right: 2px; background-color: var(--accent);
+      width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 230, 118, 0.4);
+      transition: transform 0.2s;
+    }
+    .camera-badge:hover { transform: scale(1.08); }
+    .camera-badge svg { width: 16px; height: 16px; fill: #000000; }
+
+    .profile-field {
+      display: flex; align-items: center; gap: 14px; padding: 14px 12px;
+      border: 1px solid var(--glass-border); background: var(--glass);
+      border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .profile-field:hover { background: rgba(255, 255, 255, 0.05); }
+    .profile-field-icon { width: 22px; height: 22px; stroke: var(--primary-light); stroke-width: 2; flex-shrink: 0; }
+    .profile-field-info { flex: 1; display: flex; align-items: center; justify-content: space-between; }
+    .profile-field-details { display: flex; flex-direction: column; width: 100%; }
+    .profile-field-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .pencil-icon-muted { width: 18px; height: 18px; stroke: var(--text-muted); opacity: 0.6; cursor: pointer; flex-shrink: 0; }
+    .pencil-icon-muted:hover { opacity: 1; }
+    .profile-field-value { font-size: 14px; color: var(--text); font-weight: 600; margin-top: 2px; }
+    .profile-field-action { font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 700; white-space: nowrap; }
+    
+    .inline-edit-input {
+      background: rgba(255, 255, 255, 0.08); border: 1px solid var(--accent);
+      border-radius: 6px; color: var(--text); font-size: 14px; font-weight: 600;
+      padding: 6px 10px; width: 100%; outline: none; margin-top: 4px;
+    }
+
+    /* CALENDÁRIO */
+    .calendar-container {
+      background-color: rgba(255, 102, 161, 0.12); border: 1px solid rgba(255, 102, 161, 0.3);
+      border-radius: 14px; padding: 14px; margin: 10px 0 16px 0; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .calendar-header-title {
+      font-size: 13px; font-weight: 800; color: var(--primary-light);
+      margin-bottom: 10px; text-align: center; text-transform: capitalize; letter-spacing: 0.5px;
+    }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+    .calendar-weekday { font-size: 11px; color: var(--text-muted); font-weight: 700; padding-bottom: 4px; }
+    .calendar-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; border-radius: 8px; color: var(--text);
+      cursor: pointer; transition: all 0.15s ease;
+    }
+    .calendar-day:hover { background-color: rgba(255, 255, 255, 0.15); }
+    .calendar-day.disabled { color: rgba(255, 255, 255, 0.15); cursor: default; pointer-events: none; }
+    .calendar-day.selected { background-color: var(--primary); color: #FFFFFF; font-weight: 800; box-shadow: 0 3px 10px rgba(255, 102, 161, 0.45); }
+
+    .daily-workout-box {
+      margin-top: 12px; background: rgba(255, 102, 161, 0.08); border: 1px solid rgba(255, 102, 161, 0.25);
+      border-radius: var(--radius-md); padding: 14px; display: none; animation: fadeIn 0.25s ease-out;
+    }
+    .daily-workout-box.active { display: block; }
+    .daily-workout-title { font-size: 12px; font-weight: 700; color: var(--primary-light); margin-bottom: 4px; display: block; text-transform: uppercase; }
+    .daily-workout-desc { font-size: 13.5px; color: var(--text); margin: 0; line-height: 1.4; font-weight: 600; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* MODAL FOTO */
+    .photo-modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 10000;
+      justify-content: center; align-items: flex-end;
+    }
+    .photo-modal-overlay.active { display: flex; }
+    .photo-modal-sheet {
+      background-color: #1E1E1E; width: 100%; max-width: 480px; border-top-left-radius: 24px;
+      border-top-right-radius: 24px; padding: 24px 20px 36px 20px; border-top: 1px solid var(--border);
+      animation: slideUp 0.25s ease-out;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .photo-modal-title { font-size: 16px; font-weight: 700; margin-bottom: 18px; text-align: center; color: var(--text); }
+    .photo-modal-option {
+      display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text); font-size: 14px; font-weight: 600;
+      cursor: pointer; margin-bottom: 10px; transition: all 0.2s;
+    }
+    .photo-modal-option:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--primary); }
+    .photo-modal-option svg { width: 22px; height: 22px; stroke: var(--primary-light); fill: none; stroke-width: 2; }
+    .photo-modal-cancel {
+      width: 100%; padding: 14px; background: transparent; border: none;
+      color: var(--text-muted); font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; margin-top: 4px;
+    }
+
+    /* BARRA INFERIOR */
+    .bottom-nav {
+      display: flex; justify-content: space-around; align-items: center; background-color: #161616;
+      border-top: 1px solid var(--border); padding: 8px 0; position: absolute; bottom: 0; left: 0; right: 0;
+      max-width: 480px; margin: 0 auto; box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-muted);
+      text-decoration: none; font-size: 10px; font-weight: 600; width: 25%; background: none;
+      border: none; cursor: pointer; transition: color 0.2s;
+    }
+    .nav-item svg { width: 22px; height: 22px; stroke: var(--text-muted); fill: none; stroke-width: 2; transition: stroke 0.2s; }
+    .nav-item.active { color: var(--accent); }
+    .nav-item.active svg { stroke: var(--accent); }
+    .nav-item-avatar {
+      width: 24px; height: 24px; border-radius: 50%; background-color: #333; display: flex;
+      align-items: center; justify-content: center; border: 2px solid var(--accent);
+      overflow: hidden; background-size: cover; background-position: center;
+    }
+    .nav-item-avatar svg { width: 16px; height: 16px; fill: #FFF; stroke: none; }
+
+    .navigation-arrows { display: flex; justify-content: center; align-items: center; gap: 32px; padding-top: 14px; }
+    .scroll-arrow {
+      display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+      border-radius: 50%; background-color: rgba(255, 102, 161, 0.12); border: 1px solid rgba(255, 102, 161, 0.25);
+      text-decoration: none; transition: all 0.2s ease;
+    }
+    .scroll-arrow svg { width: 22px; height: 22px; fill: none; stroke: var(--primary-light); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s ease; }
+    .scroll-arrow:hover { background-color: var(--primary); border-color: var(--primary); box-shadow: 0 4px 14px rgba(255, 102, 161, 0.4); }
+    .scroll-arrow:hover svg { stroke: #FFFFFF; }
+    .arrow-left { animation: bounceLeft 1.8s infinite; }
+    .arrow-right { animation: bounceRight 1.8s infinite; }
+    @keyframes bounceLeft { 0%, 20%, 50%, 80%, 100% { transform: translateX(0); } 40% { transform: translateX(-5px); } 60% { transform: translateX(-2px); } }
+    @keyframes bounceRight { 0%, 20%, 50%, 80%, 100% { transform: translateX(0); } 40% { transform: translateX(5px); } 60% { transform: translateX(2px); } }
+
+    .workout-card {
+      background-color: var(--surface-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 4px 14px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    /* EXERCÍCIOS EXPANSÍVEIS */
+    .exercise-wrapper { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .exercise-wrapper:last-child { border-bottom: none; }
+    .workout-row {
+      display: flex; align-items: center; gap: 12px; padding: 12px 0; cursor: pointer;
+      user-select: none; transition: background 0.15s ease;
+    }
+    .workout-row:hover { background: rgba(255, 255, 255, 0.02); border-radius: 8px; }
+    .workout-icon-bg {
+      width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(255, 102, 161, 0.12);
+      border: 1px solid rgba(255, 102, 161, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .workout-icon-bg svg { width: 20px; height: 20px; fill: var(--primary); }
+    .workout-badge-info {
+      font-size: 11px; color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08); padding: 2px 8px; border-radius: 6px; display: inline-block; font-weight: 500;
+    }
+    .chevron-icon { width: 18px; height: 18px; stroke: var(--text-muted); stroke-width: 2.5; fill: none; transition: transform 0.25s ease, stroke 0.2s ease; margin-left: auto; flex-shrink: 0; }
+    .exercise-wrapper.open .chevron-icon { transform: rotate(180deg); stroke: var(--primary); }
+    .exercise-drawer {
+      max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+      padding: 0 12px; background: rgba(0, 0, 0, 0.2); border-radius: 8px; margin-bottom: 0px;
+    }
+    .exercise-wrapper.open .exercise-drawer {
+      max-height: 380px; padding: 12px 12px 16px 12px; margin-bottom: 10px; border: 1px solid rgba(255, 102, 161, 0.2);
+    }
+    .exercise-instructions { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+    .exercise-instructions strong { color: var(--text); }
+
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
+    /* CHECKOUT */
+    .checkout-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: var(--bg-dark); z-index: 100000; padding: 32px 20px 40px 20px;
+      flex-direction: column; justify-content: space-between; overflow-y: auto;
+    }
+    .checkout-overlay.active { display: flex; }
+    .payment-option-card {
+      border: 1px solid var(--border); background: var(--glass); border-radius: var(--radius-md);
+      padding: 14px 16px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
+    }
+    .payment-option-card:hover, .payment-option-card.selected { border-color: var(--primary); background: rgba(255, 102, 161, 0.08); }
+    .payment-icon { font-size: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="horizontal-container">
+
+    <!-- SEÇÃO 1: TELA DE BOAS-VINDAS (ONBOARDING) -->
+    <div class="screen-card" id="sec1">
+      <div class="screen-content">
+        <span class="screen-tag">Tela 01 • Onboarding</span>
+        <h1>Sua rotina de alongamentos e bem-estar inclusa.</h1>
+        <p>Aproveite ao máximo seu acesso! Você já tem conteúdos gratuitos e ilimitados para cuidar da flexibilidade, postura e alívio de tensões diárias.</p>
+        
+        <div style="background-color: rgba(255,255,255,0.03); padding: 16px; border-radius: var(--radius-md); margin: 14px 0; border: 1px solid var(--glass-border);">
+          <p style="color: var(--primary-light); font-weight: 800; margin-bottom: 8px; font-size: 13px; letter-spacing: 0.3px;">🎁 O que está liberado no seu Plano Gratuito:</p>
+          <ul class="feature-list" style="margin: 0;">
+            <li>✓ Sequências diárias de alongamento corporal</li>
+            <li>✓ Guias práticos para alívio de dores nas costas</li>
+            <li>✓ Sessões de relaxamento e respiração guiada</li>
+            <li>✓ Acesso sem prazos de expiração ou cobranças</li>
+          </ul>
+        </div>
+
+        <div style="background-color: rgba(255, 102, 161, 0.08); padding: 16px; border-radius: var(--radius-md); margin: 14px 0; border: 1px solid rgba(255, 102, 161, 0.25);">
+          <p style="color: var(--primary-light); font-weight: 800; margin-bottom: 6px; font-size: 13px; letter-spacing: 0.3px;">🚀 Quer uma flexibilidade avançada?</p>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5;">Com o <b>Plano Premium</b>, você libera rotinas especializadas para abertura completa, reabilitação postural profunda e programas de mobilidade articular guiados por especialistas.</p>
+          <ul class="feature-list" style="margin: 0;">
+            <li>⚡ Programas de alongamento dinâmico avançado</li>
+            <li>📈 Acompanhamento mensal da sua amplitude de movimento</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="screen-footer">
+        <button class="btn btn-primary" id="btn-free-plan">Acessar Meu Plano Gratuito</button>
+        <a href="#sec3" class="btn btn-secondary" style="text-align: center;">Conhecer Vantagens do Premium</a>
+        <div class="navigation-arrows">
+          <a href="#sec4" class="scroll-arrow arrow-left" title="Ir para a última seção">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </a>
+          <a href="#sec2" class="scroll-arrow arrow-right" title="Próxima seção">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2: TABELA COMPARATIVA DE PLANOS -->
+    <div class="screen-card" id="sec2">
+      <div class="screen-content">
+        <span class="screen-tag">Tela 02 • Tabela Comparativa</span>
+        <h2>Escolha o seu nível de flexibilidade</h2>
+        <p>Aproveite os alongamentos essenciais ou libere programas completos de mobilidade postural.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Recursos</th>
+                <th style="text-align: center;">Grátis</th>
+                <th style="text-align: center; color: var(--primary-light);">Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sessões Básicas de Alongamento</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>Alívio para Lombar e Cervical</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>Exercícios de Respiração</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>Programas de Abertura Total</td>
+                <td class="cross">—</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>Aulas de Mobilidade Guiada</td>
+                <td class="cross">—</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>Mapeamento de Amplitude de Movimento</td>
+                <td class="cross">—</td>
+                <td class="check">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="screen-footer">
+        <button class="btn btn-primary btn-checkout-trigger" style="text-align: center;">Fazer Upgrade para o Premium</button>
+        <div class="navigation-arrows">
+          <a href="#sec1" class="scroll-arrow arrow-left" title="Seção anterior">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </a>
+          <a href="#sec3" class="scroll-arrow arrow-right" title="Próxima seção">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3: TELA DE PAYWALL / UPGRADE -->
+    <div class="screen-card" id="sec3">
+      <div class="screen-content">
+        <span class="screen-tag">Tela 03 • Paywall / Upgrade</span>
+        <h1>Desbloqueie o potencial máximo da sua flexibilidade</h1>
+        <p>Programas avançados de mobilidade, correção postural profunda e sessões diárias focadas em aliviar dores e tensões.</p>
+
+        <ul class="feature-list">
+          <li>🧘 <b>Programas de abertura avançada</b> e espacates</li>
+          <li>🎯 <b>Correção postural profunda</b> para alinhamento da coluna</li>
+          <li>🌿 <b>Sessões diárias guiadas</b> de relaxamento e alívio de estresse</li>
+          <li>📊 <b>Evolução monitorada:</b> acompanhe seus ganhos de amplitude</li>
+        </ul>
+
+        <div class="plan-card featured btn-checkout-trigger">
+          <span class="badge">R$ 20,00 OFF</span>
+          <div style="font-weight: 700; color: var(--text);">Plano Anual (Recomendado)</div>
+          <div class="plan-price">R$ 338,90 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">/ano</span></div>
+          <div class="plan-subtext">Apenas R$ 28,24/mês. Maior economia para cuidar do corpo o ano todo.</div>
+        </div>
+
+        <div class="plan-card" id="btn-mensal-trigger">
+          <div style="font-weight: 700; color: var(--text);">Plano Mensal</div>
+          <div class="plan-price">R$ 29,90 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">/mês</span></div>
+          <div class="plan-subtext">Flexibilidade total. Cancele quando quiser.</div>
+        </div>
+      </div>
+
+      <div class="screen-footer">
+        <button class="btn btn-primary btn-checkout-trigger">Garantir Plano Anual com Desconto</button>
+        <button class="btn btn-secondary" id="btn-continue-free">Continuar no Plano Gratuito</button>
+        <div class="navigation-arrows">
+          <a href="#sec2" class="scroll-arrow arrow-left" title="Seção anterior">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </a>
+          <a href="#sec4" class="scroll-arrow arrow-right" title="Próxima seção">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 4: MICROCOPY DE NOTIFICAÇÃO IN-APP -->
+    <div class="screen-card" id="sec4">
+      <div class="screen-content">
+        <span class="screen-tag">Seção 04 • Microcopy In-App</span>
+        <h2>Notificações de Relaxamento e Postura</h2>
+        <p>Mensagens estratégicas para lembrar você de cuidar do corpo ao longo do dia:</p>
+
+        <div class="notification" style="margin-top: 14px;">
+          <span class="notification-title">🧘 Hora de esticar o corpo!</span>
+          <p class="notification-body">Levante-se por 5 minutos e faça uma sequência rápida de alongamento para soltar a musculatura.</p>
+        </div>
+
+        <div class="notification">
+          <span class="notification-title">🌿 Alívio para a tensão cervical</span>
+          <p class="notification-body">Respire fundo, relaxe os ombros e libere o acúmulo de estresse no pescoço com nosso guia rápido.</p>
+        </div>
+
+        <div class="notification">
+          <span class="notification-title">💧 Hidratação e elasticidade</span>
+          <p class="notification-body">Beber água ajuda a manter as fáscias musculares hidratadas, melhorando sua flexibilidade natural.</p>
+        </div>
+
+        <div class="notification">
+          <span class="notification-title">🧍 Verificação de postura</span>
+          <p class="notification-body">Endireite as costas, abra o peito e alinhe o pescoço. Pequenos ajustes evitam dores no fim do dia.</p>
+        </div>
+
+        <div class="notification">
+          <span class="notification-title">🌙 Alongamento antes de dormir</span>
+          <p class="notification-body">Prepare seu corpo para um sono profundo soltando a lombar e relaxando as pernas agora à noite.</p>
+        </div>
+
+        <div class="notification">
+          <span class="notification-title">⏳ Desconto exclusivo de boas-vindas</span>
+          <p class="notification-body">Comece sua jornada de bem-estar com R$ 20,00 OFF no Plano Anual Premium de Alongamento e Mobilidade.</p>
+        </div>
+      </div>
+
+      <div class="screen-footer">
+        <button class="btn btn-primary" id="btn-notifications">Ativar Notificações In-App</button>
+        <div class="navigation-arrows">
+          <a href="#sec3" class="scroll-arrow arrow-left" title="Seção anterior">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </a>
+          <a href="#sec1" class="scroll-arrow arrow-right" title="Voltar ao início">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TELA DE PERFIL OCULTA COM NAVEGAÇÃO DE ABAS FUNCIONAL -->
+  <div class="profile-screen-overlay" id="profile-overlay">
+    <div class="screen-content" style="max-height: calc(100vh - 80px);">
+      
+      <!-- ABA INÍCIO (MOVEUP) -->
+      <div class="tab-view active" id="tab-inicio">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <div style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(255, 102, 161, 0.12); border-radius: 50%; border: 1px solid rgba(255, 102, 161, 0.25); margin-bottom: 6px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 10.5L12 3l9 7.5"></path>
+              <path d="M5 9v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"></path>
+              <circle cx="12" cy="9" r="1.2" fill="var(--primary)"></circle>
+              <path d="M9 13.5l3-2 3 2"></path>
+              <path d="M12 11.5V17"></path>
+            </svg>
+          </div>
+          <h2 style="font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">MoveUp</h2>
+        </div>
+
+        <!-- SELETOR DE CALENDÁRIO NA TELA INICIAL -->
+        <div class="calendar-container">
+          <div class="calendar-header-title" id="home-calendar-month-year">Carregando...</div>
+          <div class="calendar-grid">
+            <div class="calendar-weekday">Dom</div>
+            <div class="calendar-weekday">Seg</div>
+            <div class="calendar-weekday">Ter</div>
+            <div class="calendar-weekday">Qua</div>
+            <div class="calendar-weekday">Qui</div>
+            <div class="calendar-weekday">Sex</div>
+            <div class="calendar-weekday">Sáb</div>
+          </div>
+          <div class="calendar-grid" id="home-calendar-days-container" style="margin-top: 4px;"></div>
+        </div>
+
+        <!-- ROTINAS DE ALONGAMENTO EXPANDIDAS DO DIA SELECIONADO -->
+        <div style="margin-bottom: 12px;">
+          <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 3px; letter-spacing: -0.3px;" id="home-workout-focus-title">Sessão do Dia</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 0;" id="home-workout-focus-sub">Selecione uma data para ver os alongamentos.</p>
+        </div>
+
+        <div class="workout-card" id="home-workout-list-container">
+          <!-- Lista inserida dinamicamente -->
+        </div>
+      </div>
+
+      <!-- ABA PLANOS -->
+      <div class="tab-view" id="tab-planos">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Planos & Assinatura</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Escolha o plano ideal para cuidar da sua postura e flexibilidade:</p>
+
+        <div class="plan-card featured btn-checkout-trigger">
+          <span class="badge">R$ 20,00 OFF</span>
+          <div style="font-weight: 700; color: var(--text);">Plano Anual (Recomendado)</div>
+          <div class="plan-price">R$ 338,90 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">/ano</span></div>
+          <div class="plan-subtext">Apenas R$ 28,24/mês. Maior economia para flexibilidade o ano todo.</div>
+        </div>
+
+        <div class="plan-card" id="tab-btn-mensal-trigger">
+          <div style="font-weight: 700; color: var(--text);">Plano Mensal</div>
+          <div class="plan-price">R$ 29,90 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">/mês</span></div>
+          <div class="plan-subtext">Flexibilidade total. Cancele quando quiser.</div>
+        </div>
+      </div>
+
+      <!-- ABA PROGRESSO (Vazio/Em Breve) -->
+      <div class="tab-view" id="tab-progresso">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Seu Progresso</h2>
+        <div style="text-align: center; padding: 40px 10px;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; opacity: 0.6;">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <p style="font-size: 14px; font-weight: 600; color: var(--text);">Gráficos de evolução em breve!</p>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Continue alongando e acompanhe seus ganhos de mobilidade em breve.</p>
+        </div>
+      </div>
+
+      <!-- ABA PERFIL (Dados do Usuário) -->
+      <div class="tab-view" id="tab-perfil">
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Meus Dados</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Gerencie suas informações pessoais.</p>
+
+        <div class="avatar-wrapper">
+          <div class="avatar-circle">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <div class="camera-badge" id="camera-badge-btn" title="Alterar Foto">
+            <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"/></svg>
+          </div>
+        </div>
+
+        <div class="profile-field" id="field-nome">
+          <svg class="profile-field-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <div class="profile-field-info">
+            <div class="profile-field-details">
+              <span class="profile-field-label">Nome Completo</span>
+              <span class="profile-field-value" id="val-nome"></span>
+            </div>
+            <svg class="pencil-icon-muted" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </div>
+        </div>
+
+        <div class="profile-field" id="field-email">
+          <svg class="profile-field-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <div class="profile-field-info">
+            <div class="profile-field-details">
+              <span class="profile-field-label">E-mail</span>
+              <span class="profile-field-value" id="val-email"></span>
+            </div>
+            <svg class="pencil-icon-muted" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </div>
+        </div>
+
+        <div class="profile-field" id="field-senha">
+          <svg class="profile-field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <div class="profile-field-info">
+            <div class="profile-field-details">
+              <span class="profile-field-label">Senha</span>
+              <span class="profile-field-value" id="val-senha"></span>
+            </div>
+            <svg class="pencil-icon-muted" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" style="margin-top: 16px; border-color: rgba(255,102,161,0.4); color: var(--primary-light);">Desconectar Conta</button>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM NAV FIXED INSIDE FULLSCREEN MODAL -->
+    <div class="bottom-nav">
+      <button class="nav-item active" data-target="tab-inicio">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" data-target="tab-planos">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+        <span>Planos</span>
+      </button>
+      <button class="nav-item" data-target="tab-progresso">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <span>Progresso</span>
+      </button>
+      <button class="nav-item" data-target="tab-perfil">
+        <div class="nav-item-avatar">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span>Perfil</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL INFERIOR (BOTTOM SHEET) PARA TROCAR FOTO -->
+  <div class="photo-modal-overlay" id="photo-modal">
+    <div class="photo-modal-sheet">
+      <h3 class="photo-modal-title">Alterar Foto de Perfil</h3>
+      <div class="photo-modal-option">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        <span>Tirar Nova Foto</span>
+      </div>
+      <div class="photo-modal-option">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <span>Escolher da Galeria</span>
+      </div>
+      <div class="photo-modal-option" style="color: #FF5252;">
+        <svg viewBox="0 0 24 24" style="stroke: #FF5252;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        <span>Remover Foto Atual</span>
+      </div>
+      <button class="photo-modal-cancel" id="btn-cancel-photo">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE CHECKOUT SIMULADO (PLANO ANUAL) -->
+  <div class="checkout-overlay" id="checkout-overlay">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+      <button id="close-checkout-btn" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      <h2 style="font-size: 20px; font-weight: 700; margin: 0;">Finalizar Assinatura</h2>
+    </div>
+
+    <div style="background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+      <p style="font-size: 13px; color: var(--primary-light); font-weight: 800; margin-bottom: 4px; text-transform: uppercase;">Resumo do Pedido</p>
+      <h3 style="font-size: 18px; margin-bottom: 6px;">Plano Anual Premium (Promoção)</h3>
+      <p style="font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 2px;">R$ 338,90</p>
+      <p style="font-size: 12px; color: var(--accent); font-weight: 600;">Desconto de R$ 20,00 aplicado!</p>
+    </div>
+
+    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Forma de Pagamento</h3>
+    <div class="payment-option-card selected">
+      <span class="payment-icon">💳</span>
+      <div style="flex: 1;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--text);">Cartão de Crédito</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Até 12x sem juros</div>
+      </div>
+      <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center;"><div style="width: 10px; height: 10px; border-radius: 50%; background: var(--primary);"></div></div>
+    </div>
+    <div class="payment-option-card">
+      <span class="payment-icon">📱</span>
+      <div style="flex: 1;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--text);">Pix</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Aprovação na hora</div>
+      </div>
+      <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;"></div>
+    </div>
+
+    <button class="btn btn-primary" style="margin-top: 24px; font-size: 16px; padding: 18px;" onclick="alert('Assinatura Confirmada! Bem-vindo ao Premium.'); document.getElementById('checkout-overlay').classList.remove('active');">Confirmar Pagamento Seguro</button>
+    <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 14px; opacity: 0.7;">Pagamento 100% seguro com criptografia ponta a ponta.</p>
+  </div>
+
+  <!-- MODAL DE CHECKOUT SIMULADO (PLANO MENSAL - R$ 29,90) -->
+  <div class="checkout-overlay" id="checkout-mensal-overlay">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+      <button id="close-checkout-mensal-btn" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      <h2 style="font-size: 20px; font-weight: 700; margin: 0;">Finalizar Assinatura</h2>
+    </div>
+
+    <div style="background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+      <p style="font-size: 13px; color: var(--primary-light); font-weight: 800; margin-bottom: 4px; text-transform: uppercase;">Resumo do Pedido</p>
+      <h3 style="font-size: 18px; margin-bottom: 6px;">Plano Mensal Premium</h3>
+      <p style="font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 2px;">R$ 29,90</p>
+      <p style="font-size: 12px; color: var(--accent); font-weight: 600;">Flexibilidade total. Cancele quando quiser.</p>
+    </div>
+
+    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Forma de Pagamento</h3>
+    <div class="payment-option-card selected">
+      <span class="payment-icon">💳</span>
+      <div style="flex: 1;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--text);">Cartão de Crédito</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Cobrança mensal recorrente</div>
+      </div>
+      <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center;"><div style="width: 10px; height: 10px; border-radius: 50%; background: var(--primary);"></div></div>
+    </div>
+    <div class="payment-option-card">
+      <span class="payment-icon">📱</span>
+      <div style="flex: 1;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--text);">Pix</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Aprovação na hora</div>
+      </div>
+      <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;"></div>
+    </div>
+
+    <button class="btn btn-primary" style="margin-top: 24px; font-size: 16px; padding: 18px;" onclick="alert('Assinatura Confirmada! Bem-vindo ao Premium.'); document.getElementById('checkout-mensal-overlay').classList.remove('active');">Confirmar Pagamento Seguro</button>
+    <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 14px; opacity: 0.7;">Pagamento 100% seguro com criptografia ponta a ponta.</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // DADOS: BANCO DE ROTINAS DE ALONGAMENTO E MOBILIDADE EXPANDIDOS
+      const rotinasTreinos = [
+        {
+          titulo: "Alongamento Corpo Todo",
+          subtitulo: "Foco: Flexibilidade de Pernas, Braços e Costas",
+          exercicios: [
+            { 
+              id: 1, 
+              nome: "Dobrar o corpo à frente", 
+              series: "3 x 30 seg", 
+              descanso: "15s", 
+              instrucoes: "Com as pernas juntas, dobre o corpo para frente mantendo os braços e os joelhos bem esticados, tentando alcançar os pés." 
+            },
+            { 
+              id: 2, 
+              nome: "Esticar a perna", 
+              series: "3 x 30 seg cada", 
+              descanso: "15s", 
+              instrucoes: "Sente no chão, dobre uma perna (pé na coxa oposta) e estique a outra. Dobre o corpo para a frente tentando encostar a mão no pé." 
+            },
+            { 
+              id: 3, 
+              nome: "Tocar o chão", 
+              series: "3 x 30 seg", 
+              descanso: "15s", 
+              instrucoes: "Esforce-se para tentar encostar as mãos no chão com as pernas juntas, sem dobrar os joelhos." 
+            },
+            { 
+              id: 4, 
+              nome: "Alongamento lateral dos braços", 
+              series: "3 x 30 seg cada", 
+              descanso: "15s", 
+              instrucoes: "Eleve um braço esticado acima da cabeça e incline o tronco lateralmente para o lado oposto, sentindo alongar a lateral do corpo." 
+            }
+          ]
+        },
+        {
+          titulo: "Tronco e Postura",
+          subtitulo: "Foco: Abertura e torções completas para coluna",
+          exercicios: [
+            { 
+              id: 1, 
+              nome: "Sentar sobre os calcanhares", 
+              series: "3 x 45 seg", 
+              descanso: "20s", 
+              instrucoes: "Fique de joelhos no chão, encoste os glúteos nos calcanhares e aproxime o tronco do chão, com as mãos esticadas à frente." 
+            },
+            { 
+              id: 2, 
+              nome: "Encostar as mãos nas costas", 
+              series: "3 x 30 seg", 
+              descanso: "15s", 
+              instrucoes: "Sente com as pernas em formato de borboleta. Com as costas eretas, tente aproximar as palmas das mãos nas costas." 
+            },
+            { 
+              id: 3, 
+              nome: "Torcer as costas", 
+              series: "3 x 30 seg cada lado", 
+              descanso: "15s", 
+              instrucoes: "Sentado, apoie uma mão próxima ao bumbum e incline o tronco para trás. Dobre uma perna como apoio e torça." 
+            },
+            { 
+              id: 4, 
+              nome: "Pirâmide com a mão no chão", 
+              series: "3 x 30 seg cada lado", 
+              descanso: "20s", 
+              instrucoes: "Pernas afastadas, incline o corpo à frente. Apoie uma mão no chão no centro e vire o tronco, braço oposto esticado ao alto." 
+            },
+            { 
+              id: 5, 
+              nome: "Extensão torácica em pé", 
+              series: "3 x 12 reps", 
+              descanso: "15s", 
+              instrucoes: "Com os pés alinhados aos ombros, entrelacem os dedos atrás da cabeça, abra bem o peito e olhe levemente para cima para corrigir a postura." 
+            }
+          ]
+        },
+        {
+          titulo: "Alívio Lombar Profundo",
+          subtitulo: "Foco: Descompressão da parte inferior das costas",
+          exercicios: [
+            { 
+              id: 1, 
+              nome: "Joelho no peito", 
+              series: "3 x 45 seg", 
+              descanso: "20s", 
+              instrucoes: "Deite de costas e com os joelhos dobrados, traga-os próximos ao peito. Traga a cabeça em direção aos joelhos para alongar as costas." 
+            },
+            { 
+              id: 2, 
+              nome: "Alongamento da parte de baixo das costas", 
+              series: "3 x 45 seg cada lado", 
+              descanso: "20s", 
+              instrucoes: "Deitado(a) de costas, joelhos no peito e braços estendidos. Deixe os joelhos caírem para um lado e vire a cabeça para a direção oposta." 
+            },
+            { 
+              id: 3, 
+              nome: "Ponte pélvica relaxada", 
+              series: "3 x 15 reps", 
+              descanso: "20s", 
+              instrucoes: "Deitado de costas com os joelhos dobrados e pés apoiados no chão, eleve o quadril suavemente contraindo o abdômen para aliviar a lombar." 
+            }
+          ]
+        }
+      ];
+
+      // --- NAVEGAÇÃO HORIZONTAL (SNAP SCROLL + ATUALIZAR URL HASH) ---
+      const container = document.querySelector(".horizontal-container");
+      const sections = document.querySelectorAll(".screen-card");
+      let isScrolling = false;
+
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          setTimeout(() => { target.scrollIntoView({ behavior: "smooth" }); }, 100);
+        }
+      }
+
+      container.addEventListener("scroll", () => {
+        if (!isScrolling) {
+          window.requestAnimationFrame(() => {
+            let currentIndex = Math.round(container.scrollLeft / window.innerWidth);
+            let activeSection = sections[currentIndex];
+            if (activeSection && `#${activeSection.id}` !== window.location.hash) {
+              history.replaceState(null, null, `#${activeSection.id}`);
+            }
+            isScrolling = false;
+          });
+          isScrolling = true;
+        }
+      });
+
+      // --- AÇÕES DE BOTÕES NAS TELAS INICIAIS ---
+      const profileOverlay = document.getElementById("profile-overlay");
+
+      document.getElementById("btn-free-plan").addEventListener("click", () => {
+        profileOverlay.classList.add("active");
+        renderizarCalendario();
+      });
+      document.getElementById("btn-continue-free").addEventListener("click", () => {
+        profileOverlay.classList.add("active");
+        renderizarCalendario();
+      });
+      document.getElementById("btn-notifications").addEventListener("click", () => {
+        alert("Notificações de postura ativadas com sucesso!");
+        profileOverlay.classList.add("active");
+        renderizarCalendario();
+      });
+
+      // --- LÓGICA DOS CHECKOUTS MODAIS ---
+      const checkoutOverlay = document.getElementById("checkout-overlay");
+      document.querySelectorAll(".btn-checkout-trigger").forEach(btn => {
+        btn.addEventListener("click", () => { checkoutOverlay.classList.add("active"); });
+      });
+      document.getElementById("close-checkout-btn").addEventListener("click", () => {
+        checkoutOverlay.classList.remove("active");
+      });
+
+      const checkoutMensalOverlay = document.getElementById("checkout-mensal-overlay");
+      const triggerMensal = document.getElementById("btn-mensal-trigger");
+      const tabTriggerMensal = document.getElementById("tab-btn-mensal-trigger");
+
+      if(triggerMensal) {
+        triggerMensal.addEventListener("click", () => { checkoutMensalOverlay.classList.add("active"); });
+      }
+      if(tabTriggerMensal) {
+        tabTriggerMensal.addEventListener("click", () => { checkoutMensalOverlay.classList.add("active"); });
+      }
+      document.getElementById("close-checkout-mensal-btn").addEventListener("click", () => {
+        checkoutMensalOverlay.classList.remove("active");
+      });
+
+      const paymentCards = document.querySelectorAll(".payment-option-card");
+      paymentCards.forEach(card => {
+        card.addEventListener("click", () => {
+          const parentOverlay = card.closest('.checkout-overlay');
+          const cardsInOverlay = parentOverlay.querySelectorAll(".payment-option-card");
+          
+          cardsInOverlay.forEach(c => {
+            c.classList.remove("selected");
+            const indicator = c.lastElementChild;
+            indicator.style.border = "2px solid var(--border)";
+            indicator.innerHTML = "";
+          });
+          card.classList.add("selected");
+          const indicator = card.lastElementChild;
+          indicator.style.border = "2px solid var(--primary)";
+          indicator.innerHTML = `<div style="width: 10px; height: 10px; border-radius: 50%; background: var(--primary);"></div>`;
+        });
+      });
+
+      // --- TABS INFERIORES NO APP (MOVEUP) ---
+      const tabBtns = document.querySelectorAll(".nav-item");
+      const tabViews = document.querySelectorAll(".tab-view");
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          tabViews.forEach(v => v.classList.remove("active"));
+          btn.classList.add("active");
+          const targetId = btn.getAttribute("data-target");
+          document.getElementById(targetId).classList.add("active");
+          
+          if(targetId === "tab-inicio") { renderizarCalendario(); }
+        });
+      });
+
+      // --- LÓGICA DO CALENDÁRIO OTIMIZADA (TODOS OS DIAS INTERATIVOS) ---
+      const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+      let dataSelecionada = new Date();
+
+      function renderizarCalendario() {
+        const containerDias = document.getElementById("home-calendar-days-container");
+        const monthYearLabel = document.getElementById("home-calendar-month-year");
+        
+        containerDias.innerHTML = "";
+        
+        const hoje = new Date();
+        const mesAtual = hoje.getMonth();
+        const anoAtual = hoje.getFullYear();
+        monthYearLabel.textContent = `${monthNames[mesAtual]} ${anoAtual}`;
+
+        const primeiroDiaObj = new Date(anoAtual, mesAtual, 1);
+        const ultimoDiaObj = new Date(anoAtual, mesAtual + 1, 0);
+        
+        let blanks = primeiroDiaObj.getDay();
+        for(let i = 0; i < blanks; i++){
+          let emptyDiv = document.createElement("div");
+          containerDias.appendChild(emptyDiv);
+        }
+        
+        for(let dia = 1; dia <= ultimoDiaObj.getDate(); dia++) {
+          let dayDiv = document.createElement("div");
+          dayDiv.className = "calendar-day";
+          dayDiv.textContent = dia;
+
+          if(dia === dataSelecionada.getDate() && mesAtual === dataSelecionada.getMonth()) {
+            dayDiv.classList.add("selected");
+          }
+          
+          dayDiv.addEventListener("click", () => {
+            document.querySelectorAll(".calendar-day.selected").forEach(el => el.classList.remove("selected"));
+            dayDiv.classList.add("selected");
+            dataSelecionada = new Date(anoAtual, mesAtual, dia);
+            carregarTreinoDoDia(dia);
+          });
+          
+          containerDias.appendChild(dayDiv);
+        }
+        carregarTreinoDoDia(dataSelecionada.getDate());
+      }
+
+      function carregarTreinoDoDia(dia) {
+        const titleEl = document.getElementById("home-workout-focus-title");
+        const subEl = document.getElementById("home-workout-focus-sub");
+        const listContainer = document.getElementById("home-workout-list-container");
+        
+        listContainer.innerHTML = "";
+
+        let indiceRotina = 0;
+        if (dia % 3 === 0) indiceRotina = 2;
+        else if (dia % 2 === 0) indiceRotina = 1;
+
+        const rotinaDia = rotinasTreinos[indiceRotina];
+        titleEl.textContent = rotinaDia.titulo;
+        subEl.textContent = rotinaDia.subtitulo;
+
+        rotinaDia.exercicios.forEach((ex, index) => {
+          const exHTML = `
+            <div class="exercise-wrapper">
+              <div class="workout-row" onclick="this.parentElement.classList.toggle('open')">
+                <div class="workout-icon-bg">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
+                <div style="flex: 1;">
+                  <div style="font-size: 14px; font-weight: 700; color: var(--text);">${ex.nome}</div>
+                  <div style="margin-top: 4px; display: flex; gap: 8px;">
+                    <span class="workout-badge-info">${ex.series}</span>
+                    <span class="workout-badge-info">Pausa: ${ex.descanso}</span>
+                  </div>
+                </div>
+                <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+              
+              <div class="exercise-drawer">
+                <p class="exercise-instructions">
+                  <strong>Instrução:</strong> ${ex.instrucoes}
+                </p>
+              </div>
+            </div>
+          `;
+          listContainer.insertAdjacentHTML('beforeend', exHTML);
+        });
+      }
+
+      // --- EDIÇÃO INLINE DO PERFIL ---
+      function setupInlineEdit(fieldId, valueId, originalText) {
+        const fieldEl = document.getElementById(fieldId);
+        const valueEl = document.getElementById(valueId);
+
+        fieldEl.addEventListener("click", function startEdit(e) {
+          if (e.target.tagName === 'INPUT') return;
+          const currentVal = valueEl.innerText;
+          valueEl.innerHTML = `<input type="text" class="inline-edit-input" value="${currentVal}">`;
+          const inputEl = valueEl.querySelector("input");
+          inputEl.focus();
+
+          inputEl.addEventListener("blur", () => { saveEdit(inputEl.value); });
+          inputEl.addEventListener("keypress", (ev) => { if(ev.key === "Enter") saveEdit(inputEl.value); });
+
+          function saveEdit(newVal) {
+            valueEl.innerHTML = newVal.trim() !== "" ? newVal : originalText;
+          }
+        });
+      }
+
+      setupInlineEdit("field-nome", "val-nome", "Maria Silva");
+      setupInlineEdit("field-email", "val-email", "maria.silva@email.com");
+      setupInlineEdit("field-senha", "val-senha", "********");
+
+      // --- MODAL DE TROCA DE FOTO (BOTTOM SHEET) ---
+      const cameraBadge = document.getElementById("camera-badge-btn");
+      const photoModal = document.getElementById("photo-modal");
+      const cancelPhotoBtn = document.getElementById("btn-cancel-photo");
+
+      cameraBadge.addEventListener("click", () => { photoModal.classList.add("active"); });
+      cancelPhotoBtn.addEventListener("click", () => { photoModal.classList.remove("active"); });
+      photoModal.addEventListener("click", (e) => {
+        if (e.target === photoModal) photoModal.classList.remove("active");
+      });
+      document.querySelectorAll(".photo-modal-option").forEach(opt => {
+        opt.addEventListener("click", () => {
+          alert("Função indisponível neste protótipo.");
+          photoModal.classList.remove("active");
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
